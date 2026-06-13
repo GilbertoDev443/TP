@@ -104,15 +104,3 @@ void lerJogos(){
     return;
 }
 
-int main(){
-
-    lerNomeselecao();
-
-    lerJogos();
-
-    for(int i = 0; i < COUNT; i++){
-        printf("%d", copa[i].gols);
-    }
-    
-    return 0;
-}
