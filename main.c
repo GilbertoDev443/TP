@@ -16,7 +16,6 @@ int TAM = 48;
 //Contadaor de Times
 int COUNT = 0;
 
-////Função de Entrada dos Times
 void lerNomeselecao(){
     // Abertura do Arquivo para Read
     FILE *arq = fopen("selecao.txt", "r");
@@ -42,12 +41,11 @@ void lerNomeselecao(){
     return ;
 }
 
-//Função de Entrada dos Jogos
 void lerJogos(){
     // Abertura do Arquivo para Read
     FILE *arq = fopen("jogos.txt", "r");
     
-    // Confirmação para ver se o Arquivo abriu
+    // Confirmação para ver se o Aqrquivo abriu
     if(arq == NULL){
         printf("Problema ao abrir o arquivo!");
         return ;
@@ -106,3 +104,125 @@ void lerJogos(){
     return;
 }
 
+//Função para ordenar o vetor
+void Ordena(){
+
+// Loop para ordenação
+//Variavel de controle do loop
+int a;
+do{
+    a = 0;
+    //Percorrer o vetor copa
+    for (int i = COUNT - 1 ; i > 0; i--){
+        //Analise se a pontuacao da direita e maior que o da esquerda
+        if(copa[i].pontuacao > copa[i-1].pontuacao){
+            //Troca os indices
+            selecao aux = copa[i];
+            copa[i] = copa[i-1];
+            copa[i-1] = aux;
+            a++;
+        }
+        //Mesma pontuacao
+        else if (copa[i].pontuacao == copa[i-1].pontuacao){
+            //Mesma quantidade de gols
+            if (copa[i].gols == copa[i-1].gols){
+                //Desampate por nome
+                if (strcmp(copa[i].nome, copa[i-1].nome ) < 0){
+                    selecao aux = copa[i];
+                    copa[i] = copa[i-1];
+                    copa[i-1] = aux;
+                    a++;
+                }
+                //Nome de i-1 vem primerio
+                else{
+                    //Manter a posicao
+                    continue;
+                }
+            }
+            //Quantidade diferente de gols
+            else{
+                //Gols da direita maior que o da esquerda
+                if(copa[i].gols > copa[i-1].gols){
+                    selecao aux = copa[i];
+                    copa[i] = copa[i-1];
+                    copa[i-1] = aux;
+                    a++;
+                }
+                //Gols da esquerda maior que o da direita
+                else{
+                    //Manter a posicao
+                    continue;
+                }
+            }
+        }
+        //Pontuacao da Esquerda e maior que o da direita
+        else{
+            //Manter posicao
+            continue;
+        }
+    }
+}while (a > 0);
+
+}
+
+///Função de Saida
+void saida(){
+    // Abertura do Arquivo para Write
+    FILE *arq = fopen("classificacao.txt", "w");
+    
+    // Confirmação para ver se o Aqrquivo abriu
+    if(arq == NULL){
+        printf("Problema ao abrir o arquivo!");
+        return ;
+    }   
+    
+    //Saida em forma de Aquivo das colocações
+    else{
+        // Print visual
+        for (int i = 0; i < 40; i++){
+            fprintf(arq, "=");
+        }
+        fprintf(arq, "\n\n");
+
+        fprintf(arq, "CLASSIFICACAO FINAL DA COPA DO MUNDO\n\n");
+
+        for (int i = 0; i < 40; i++){
+            fprintf(arq, "=");
+        }
+        fprintf(arq, "\n\n");
+
+        fprintf(arq, "PODIO DOS CAMPEOES:\n\n");
+
+        // Print da colocação
+        // Atualmente o 1,2,3 Lugar esta no Indíce 0,1,2 respectivamente do vetor "copa"
+        if (COUNT == 1){
+            fprintf(arq, "1o Lugar: %s - %d Pontos (%d Gols)\n", copa[0].nome, copa[0].pontuacao, copa[0].gols);
+        }
+        else if(COUNT == 2){
+            for (int i = 0; i < 2; i++){
+                fprintf(arq, "%do Lugar: %s - %d Pontos (%d Gols)\n", i+1, copa[i].nome, copa[i].pontuacao, copa[i].gols);
+            }
+        }
+        else{
+            for (int i = 0; i < 3; i++){
+                fprintf(arq, "%do Lugar: %s - %d Pontos (%d Gols)\n", i+1, copa[i].nome, copa[i].pontuacao, copa[i].gols);
+            }
+        }
+
+        //Fechamento do Arquivo
+        fclose(arq);
+    }
+}
+
+int main(){
+
+    lerNomeselecao();
+
+    lerJogos();
+
+    Ordena();
+
+    saida();
+
+    return 0;
+}

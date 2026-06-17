@@ -16,6 +16,7 @@ int TAM = 48;
 //Contadaor de Times
 int COUNT = 0;
 
+////Função de Entrada dos Times
 void lerNomeselecao(){
     // Abertura do Arquivo para Read
     FILE *arq = fopen("selecao.txt", "r");
@@ -41,11 +42,12 @@ void lerNomeselecao(){
     return ;
 }
 
+//Função de Entrada dos Jogos
 void lerJogos(){
     // Abertura do Arquivo para Read
     FILE *arq = fopen("jogos.txt", "r");
     
-    // Confirmação para ver se o Aqrquivo abriu
+    // Confirmação para ver se o Arquivo abriu
     if(arq == NULL){
         printf("Problema ao abrir o arquivo!");
         return ;
@@ -163,77 +165,4 @@ do{
     }
 }while (a > 0);
 
-}
-
-///Função de Saida
-void saida(){
-    // Abertura do Arquivo para Write
-    FILE *arq = fopen("classificacao.txt", "w");
-    
-    // Confirmação para ver se o Aqrquivo abriu
-    if(arq == NULL){
-        printf("Problema ao abrir o arquivo!");
-        return ;
-    }   
-    
-    //Saida em forma de Aquivo das colocações
-    else{
-        // Print visual
-        for (int i = 0; i < 40; i++){
-            fprintf(arq, "=");
-        }
-        fprintf(arq, "\n\n");
-
-        fprintf(arq, "CLASSIFICACAO FINAL DA COPA DO MUNDO\n\n");
-
-        for (int i = 0; i < 40; i++){
-            fprintf(arq, "=");
-        }
-        fprintf(arq, "\n\n");
-
-        fprintf(arq, "PODIO DOS CAMPEOES:\n\n");
-
-        // Print da colocação
-        // Atualmente o 1,2,3 Lugar esta no Indíce 0,1,2 respectivamente do vetor "copa"
-        if (COUNT == 1){
-            fprintf(arq, "1o Lugar: %s - %d Pontos (%d Gols)\n", copa[0].nome, copa[0].pontuacao, copa[0].gols);
-        }
-        else if(COUNT == 2){
-            for (int i = 0; i < 2; i++){
-                fprintf(arq, "%do Lugar: %s - %d Pontos (%d Gols)\n", i+1, copa[i].nome, copa[i].pontuacao, copa[i].gols);
-            }
-        }
-        else{
-            for (int i = 0; i < 3; i++){
-                fprintf(arq, "%do Lugar: %s - %d Pontos (%d Gols)\n", i+1, copa[i].nome, copa[i].pontuacao, copa[i].gols);
-            }
-        }
-
-        //Fechamento do Arquivo
-        fclose(arq);
-    }
-}
-
-int main(){
-
-    lerNomeselecao();
-    printf("%d\n", COUNT);
-
-    lerJogos();
-
-    for(int i = 0; i < COUNT; i++){
-        printf("%s %d %d\n",copa[i].nome , copa[i].pontuacao, copa[i].gols);
-    }
-
-    printf("Novo\n\n\n");
-
-    Ordena();
-
-    for(int i = 0; i < COUNT; i++){
-        printf("%s %d %d\n",copa[i].nome , copa[i].pontuacao, copa[i].gols);
-    }
-
-    saida();
-
-    return 0;
 }

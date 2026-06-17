@@ -32,8 +32,18 @@ void saida(){
 
         // Print da colocação
         // Atualmente o 1,2,3 Lugar esta no Indíce 0,1,2 respectivamente do vetor "copa"
-        for(int i = 0; i < 3; i++){
-            fprintf(arq, "%do Lugar: %s - %d Pontos (%d Gols)\n", i+1, copa[i].nome, copa[i].pontuacao, copa[i].gols);
+        if (COUNT == 1){
+            fprintf(arq, "1o Lugar: %s - %d Pontos (%d Gols)\n", copa[0].nome, copa[0].pontuacao, copa[0].gols);
+        }
+        else if(COUNT == 2){
+            for (int i = 0; i < 2; i++){
+                fprintf(arq, "%do Lugar: %s - %d Pontos (%d Gols)\n", i+1, copa[i].nome, copa[i].pontuacao, copa[i].gols);
+            }
+        }
+        else{
+            for (int i = 0; i < 3; i++){
+                fprintf(arq, "%do Lugar: %s - %d Pontos (%d Gols)\n", i+1, copa[i].nome, copa[i].pontuacao, copa[i].gols);
+            }
         }
 
         //Fechamento do Arquivo
