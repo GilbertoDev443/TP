@@ -18,7 +18,7 @@ int COUNT = 0;
 
 void lerNomeselecao(){
     // Abertura do Arquivo para Read
-    FILE *arq = fopen("selecao.txt", "r");
+    FILE *arq = fopen("selecoes.txt", "r");
     
     // Confirmação para ver se o Aqrquivo abriu
     if(arq == NULL){
