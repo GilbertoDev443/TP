@@ -209,6 +209,12 @@ void saida(){
             }
         }
 
+        printf("\n");
+
+        for (int i = 0; i < 40; i++){
+            fprintf(arq, "=");
+        }
+
         //Fechamento do Arquivo
         fclose(arq);
     }
