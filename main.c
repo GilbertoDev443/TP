@@ -209,7 +209,7 @@ void saida(){
             }
         }
 
-        printf("\n");
+        fprintf(arq, "\n");
 
         for (int i = 0; i < 40; i++){
             fprintf(arq, "=");
